@@ -1,12 +1,15 @@
-import React from 'react';
-import CartSummary from './Components/CartSummary';
+  import React from 'react';
+  import './App.css';
+  import Products from './Components/Products';
+  import Header from './Components/Header';
 
-const App:React.FC = () => {
-  return (
-    <div>
-      <CartSummary />
-    </div>
-  )
-}
+  const App:React.FC = () => {
+    return (
+      <div>
+        <Header />
+        <Products />
+      </div>
+    )
+  }
 
-export default App
+  export default App
