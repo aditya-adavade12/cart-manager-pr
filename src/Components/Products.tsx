@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Products: React.FC = () => {
   // State of Cart
   const [Cart, setCart] = useState<{ id: number, name: string, salePrice: number, realPrice: number, imgLink: any, qty: number }[]>(
+    // Intial State
     JSON.parse(localStorage.getItem("P-Cart") || "[]")
   );
   // Products Array of objects
@@ -15,16 +16,21 @@ const Products: React.FC = () => {
     { id: 6, name: "Fish Curry", salePrice: 200, realPrice: 250, imgLink: "https://www.licious.in/blog/wp-content/uploads/2022/03/shutterstock_1891229335-min-750x750.jpg", qty: 1 },
   ];
   // Function add to cart
-  // const addToCart = (item: { id: number, name: string, salePrice: number, realPrice: number, imgLink: any, qty: number }) => {
-  //   let getCart = JSON.parse(localStorage.getItem("P-Cart") || "[]");
-  //   localStorage.setItem("P-Cart", JSON.stringify(item));
-  //   if (item.id === getCart.find((i: {id: number}) => i.id)) {
-  //     console.log("Found");
-  //   } else {
-  //     console.log("Not Found");
-      
-  //   }
-  // }
+  const addToCart = (item: { id: number, name: string, salePrice: number, realPrice: number, imgLink: any, qty: number }) => {
+    const updateCart = [...Cart, item];
+    const getCart = JSON.parse(localStorage.getItem("P-Cart") || "[]");
+    const findProdId = getCart.find((product:any) => product.id === item.id);
+    if (findProdId) {
+      console.log("found", findProdId.id, item.id);
+    } else {
+      console.log("not found");
+      setCart(updateCart);
+      localStorage.setItem("P-Cart", JSON.stringify(updateCart));
+    }
+  }
+  useEffect(() => {
+    console.log(Cart);
+  }, [Cart]);
   return (
     <div>
       <div id="product-container" className="w-[50vw] max-sm:w-[90vw] mx-auto mt-3.5">
@@ -53,7 +59,7 @@ const Products: React.FC = () => {
                 <p className="line-through text-md">₹{product.realPrice}</p>
               </div>
               <div className="w-full text-center">
-                <button className="bg-amber-400 w-full rounded-lg py-1.5 cursor-pointer hover:bg-amber-500 transition-all font-medium">
+                <button className="bg-amber-400 w-full rounded-lg py-1.5 cursor-pointer hover:bg-amber-500 transition-all font-medium" onClick={() => addToCart(product)}>
                   Add to Cart
                 </button>
               </div>
