@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const Products: React.FC = () => {
   // State of Cart
@@ -20,17 +20,19 @@ const Products: React.FC = () => {
     const updateCart = [...Cart, item];
     const getCart = JSON.parse(localStorage.getItem("P-Cart") || "[]");
     const findProdId = getCart.find((product:any) => product.id === item.id);
+    // Finding product by ID
     if (findProdId) {
-      console.log("found", findProdId.id, item.id);
+     const updateCart = getCart.map((product:any) =>
+      product.id === item.id ? {...product, qty: product.qty + 1} : product
+    );
+    setCart(updateCart);
+    localStorage.setItem("P-Cart", JSON.stringify(updateCart));
     } else {
       console.log("not found");
       setCart(updateCart);
       localStorage.setItem("P-Cart", JSON.stringify(updateCart));
     }
   }
-  useEffect(() => {
-    console.log(Cart);
-  }, [Cart]);
   return (
     <div>
       <div id="product-container" className="w-[50vw] max-sm:w-[90vw] mx-auto mt-3.5">
