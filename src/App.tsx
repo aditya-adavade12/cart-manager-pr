@@ -1,15 +1,12 @@
 import React from 'react';
 import './App.css';
-import Products from './Components/Products';
-import Header from './Components/Header';
-import Cart from './Components/Cart';
+import Product from './components/Product';
+
 
   const App:React.FC = () => {
     return (
       <div>
-        <Header />
-        <Products />
-        <Cart />
+       <Product />
       </div>
     )
   }
