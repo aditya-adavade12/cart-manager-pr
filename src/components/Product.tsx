@@ -35,13 +35,6 @@ const Product: React.FC = () => {
                         <div>No products available</div>
                     )}
                 </div>
-
-            </div>
-            {/* Cart */}
-            <div id="cart-container">
-                <div id="cart">
-                    <div id="cart-items"></div>
-                </div>
             </div>
         </div>
     )
