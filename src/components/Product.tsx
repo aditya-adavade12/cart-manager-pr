@@ -22,7 +22,6 @@ const Product: React.FC = () => {
         return JSON.parse(localStorage.getItem("Cart") || "[]");
     });
     // Syncing cart state with localstorage
-
     useEffect(() => {
         localStorage.setItem("Cart", JSON.stringify(cart));    
     }, [cart]);
@@ -36,13 +35,14 @@ const Product: React.FC = () => {
             // Item exist
             const itemExists = prevCart.some((product) => product.id === item.id)
             return itemExists ? updateCart : [...prevCart, {...item, qty : 1}];
-        })
+        });
+        window.location.reload();
     }
     return (
-        <div className='w-[50vw] mx-auto'>
+        <div className='w-[50vw] mx-auto max-sm:w-[90vw]'>
             {/* Product Container */}
-            <div id="product-container" className='w-[50vw] mt-20'>
-                <div id="products" className="flex flex-row w-[50vw] overflow-x-scroll gap-2.5">
+            <div id="product-container" className='mt-20'>
+                <div id="products" className="flex flex-row overflow-x-scroll gap-2.5">
                     {productArray.length > 0 ? (
                         productArray.map((item: any) => (
                             <div
